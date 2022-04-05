@@ -22,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class Test1 implements CommandLineRunner {
     private final CompanyRepo companyRepo;
-//    private final CouponRepo couponRepo;
+    private final CouponRepo couponRepo;
     private final int ONE_DAY=1000*60*60*24;
     @Override
     public void run(String... args) throws Exception {
@@ -33,7 +33,7 @@ public class Test1 implements CommandLineRunner {
                     .builder()
                     .category(Category.ELECTRICITY)
                     .amount(100)
-                    .companyId(1)
+//                    .companyId(1)
                     .description("coupon number "+(counter+1))
                     .title("coupon title "+(counter+1))
                     .price(Math.random()*100+1)
@@ -54,12 +54,15 @@ public class Test1 implements CommandLineRunner {
             companyRepo.save(company);
         }
 
+
             Optional<Company> singleCompany=companyRepo.findById(1);
             if(singleCompany.isPresent()){
                 Company addTest = companyRepo.getById(1);
+                addTest.setName("Update");
                 addTest.setCoupons(coupons);
                 companyRepo.save(addTest);
             }
+            TablePrinter.print(couponRepo.findAll());
 
 //        List<Company> companies=companyRepo.findAll();
 //        TablePrinter.print(companies);

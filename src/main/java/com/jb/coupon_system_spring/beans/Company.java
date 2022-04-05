@@ -23,6 +23,13 @@ public class Company {
     @JoinColumn(name = "company_id")
     @Singular
     private List<Coupon> coupons = new ArrayList<>();
+
+    public void setCoupons(List<Coupon> coupons) {
+        for (int i =0;i<coupons.size();i++){
+            coupons.get(i).setCompanyId(getId());
+        }
+        this.coupons = coupons;
+    }
 }
 
 
