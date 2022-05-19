@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/customer")
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
 public class CustomerController {
 
     private final CustomerService customerService;
