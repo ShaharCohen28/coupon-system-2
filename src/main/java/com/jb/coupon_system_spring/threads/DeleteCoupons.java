@@ -17,8 +17,11 @@ import java.sql.Date;
 public class DeleteCoupons {
     private final CouponRepo couponRepo;
 
+    /**
+     * Asynchronous method that deletes expired coupons from the database every day at 00:00:00 GMT+3
+     */
     @Async
-    @Scheduled(cron="20 55 12 * * ?",zone = "Asia/Jerusalem")
+    @Scheduled(cron="00 00 00 * * ?",zone = "Asia/Jerusalem")
     public void deleteCoupons(){
         Date now=new Date(System.currentTimeMillis());
         couponRepo.deleteExpiredCouponPurchase(now);

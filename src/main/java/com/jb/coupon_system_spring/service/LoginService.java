@@ -23,6 +23,15 @@ public class LoginService {
     public static final String ADMIN_EMAIL="admin@admin.com";
     public static final String ADMIN_PASSWORD="admin";
 
+    /**
+     * This method generates new JWT token when a user logs in t the system.
+     * @param email is the email of the user.
+     * @param password is the password of the user.
+     * @param clientType is the ClientType of the user.
+     * @return new JWT token with the email, ClientType and id of the user.
+     * @throws LoginException if email or password are incorrect
+     * or if the user is unauthorised (exp. Company wants to log in as a customer).
+     */
     public String login(String email, String password, ClientType clientType) throws LoginException {
         switch (clientType) {
             case ADMIN:
