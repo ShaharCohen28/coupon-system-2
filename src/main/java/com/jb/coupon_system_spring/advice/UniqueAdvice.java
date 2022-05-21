@@ -13,6 +13,11 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestController
 @ControllerAdvice
 public class UniqueAdvice {
+    /**
+     * This method check the exception for the unique exception
+     * @param e the exception
+     * @return error detail for a unique exception
+     */
     @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public  ErrorDetail uniqueError(Exception e){

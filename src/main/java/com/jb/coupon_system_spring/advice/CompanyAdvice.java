@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class CompanyAdvice {
+    /**
+     * This method check the exception for the company's
+     * @param e the exception
+     * @return error detail for a company
+     */
     @ExceptionHandler(value = {CompanyException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleCompanyException(Exception e){

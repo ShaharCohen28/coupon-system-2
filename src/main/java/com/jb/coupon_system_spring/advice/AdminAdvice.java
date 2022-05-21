@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class AdminAdvice {
+    /**
+     * This method check the exception for the admin
+     * @param e The exception
+     * @return error detail of a admin
+     */
     @ExceptionHandler(value = {AdminException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleAdminException(Exception e){
