@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class CouponAdvice {
+    /**
+     * This method check the exception for the coupons
+     * @param e the exception
+     * @return error detail for a coupon
+     */
     @ExceptionHandler(value = {CouponException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ErrorDetail handleCouponException(Exception e){

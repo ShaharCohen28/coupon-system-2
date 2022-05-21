@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class JWTAdvice {
+    /**
+     * This method check the exception for the token
+     * @param e the exception
+     * @return error detail for a token
+     */
     @ExceptionHandler(value = {MalformedJwtException.class, ExpiredJwtException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDetail jwtError(Exception e){

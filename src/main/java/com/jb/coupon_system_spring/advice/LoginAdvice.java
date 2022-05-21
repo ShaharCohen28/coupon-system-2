@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @ControllerAdvice
 public class LoginAdvice {
+    /**
+     * This method check the exception for the login method
+     * @param e the exception
+     * @return error detail fot a login
+     */
     @ExceptionHandler(value = {LoginException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDetail loginError(Exception e){
