@@ -24,9 +24,13 @@ import java.util.stream.Collectors;
 @Getter
 public class CustomerService extends ClientService implements CustomerServiceInterFace {
 
-    //private int customerId;
 
-
+    /**
+     * This method is used to purchase a coupon.
+     *
+     * @param couponId is the id of the coupon to purchase.
+     * @throws CouponException due to invalid coupon(amount, date, already purchased).
+     */
     @Override
     public void purchaseCoupon(int couponId) throws CouponException {
         Optional<Coupon> coupon = couponRepo.findById(couponId);
@@ -50,6 +54,12 @@ public class CustomerService extends ClientService implements CustomerServiceInt
         }
     }
 
+    /**
+     * This method returns a list of customer's coupons by id.
+     *
+     * @return a list of customer's coupons by id.
+     * @throws CustomerException due to invalid customer id.
+     */
     @Override
     public List<Coupon> getCustomerCoupon() throws CustomerException {
         if (customerRepo.existsById(this.clientId)) {
@@ -59,6 +69,13 @@ public class CustomerService extends ClientService implements CustomerServiceInt
         }
     }
 
+    /**
+     * This method returns a list of customer's coupons by category.
+     *
+     * @param category is the category selected to show coupons according to.
+     * @return a list of customer's coupons by category.
+     * @throws CustomerException due to invalid customer id.
+     */
     @Override
     public List<Coupon> getCustomerCouponByCategory(Category category) throws CustomerException {
         if(customerRepo.existsById(this.clientId)) {
@@ -68,6 +85,13 @@ public class CustomerService extends ClientService implements CustomerServiceInt
         }
     }
 
+    /**
+     * This method returns a list of customer's coupons by maximum price.
+     *
+     * @param price is the maximum price of customer's coupons to show.
+     * @return a list of customer's coupons by max price.
+     * @throws CustomerException due to invalid customer id.
+     */
     @Override
     public List<Coupon> getCustomerCouponByPrice(double price) throws CustomerException {
         if (customerRepo.existsById(this.clientId)) {
@@ -77,6 +101,12 @@ public class CustomerService extends ClientService implements CustomerServiceInt
         }
     }
 
+    /**
+     * This method returns the connected customer's details.
+     *
+     * @return connected customer's details.
+     * @throws CustomerException due to invalid customer id.
+     */
     @Override
     public Customer getCustomerDetails() throws CustomerException {
         Optional<Customer> customer = customerRepo.findById(this.clientId);
