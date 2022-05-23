@@ -25,7 +25,10 @@ public class LoginController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserData userData) throws LoginException {
-        return new ResponseEntity<>(loginService.login(userData.getUserEmail(), userData.getUserPassword(), userData.getUserType()), HttpStatus.ACCEPTED);
+        return  ResponseEntity.ok()
+                .header("Authorization",loginService
+                        .login(userData.getUserEmail(), userData.getUserPassword(), userData.getUserType()))
+                .build();
     }
 
 }
