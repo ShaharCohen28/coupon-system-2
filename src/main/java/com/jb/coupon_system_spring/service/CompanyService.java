@@ -21,17 +21,12 @@ import java.util.Optional;
 public class CompanyService extends ClientService implements CompanyServiceInterface {
 
 
-    //private int companyId;
+
 
 
     @Override
     public void addCoupon(Coupon coupon) throws CompanyException {
-        //todo: how to add coupon only to the current company
-//        if(coupon.getCompanyId()==this.clientId) {
-//            couponRepo.save(coupon);
-//        }else {
-//            throw new CompanyException(ErrorTypes.WRONG_COMPANY.getMessage());
-//        }
+
         if(!companyRepo.existsById(coupon.getCompanyId())){
             throw new CompanyException(ErrorTypes.COMPANY_NOT_EXIST.getMessage());
         }
@@ -44,15 +39,7 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     @Override
     public void updateCoupon(Coupon coupon) throws CompanyException {
-//        if (companyRepo.existsById(coupon.getCompanyId())) {
-//            if (couponRepo.existsById(coupon.getId())) {
-//                couponRepo.save(coupon);
-//            } else {
-//                throw new CompanyExceptions(ErrorTypes.COUPON_NOT_EXIST.getMessage());
-//            }
-//        } else {
-//            throw new CompanyExceptions(ErrorTypes.COMPANY_NOT_EXIST.getMessage());
-//        }
+
         if(couponRepo.existsById(coupon.getId())){
             if(!companyRepo.existsById(coupon.getId())){
                 throw new CompanyException(ErrorTypes.COMPANY_NOT_EXIST.getMessage());
@@ -110,7 +97,7 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     @Override
     public Company companyDetails() throws CompanyException {
-//        Optional<Company> company = companyRepo.findById(this.companyId);
+
         Optional<Company> company = companyRepo.findById(this.clientId);
         if (company.isPresent()) {
             return company.get();
