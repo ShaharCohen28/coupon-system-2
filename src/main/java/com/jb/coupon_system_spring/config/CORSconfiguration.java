@@ -6,6 +6,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.List;
+
 @Configuration
 public class CORSconfiguration {
     @Bean
@@ -26,6 +28,7 @@ public class CORSconfiguration {
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");
         config.addAllowedMethod("DELETE");
+        config.setExposedHeaders(List.of("Authorization"));
         //allow to get any route -> localhost:8080/api/lecturer -> /api/lecture is route
         source.registerCorsConfiguration("/**",config);
         ///return new configuration
