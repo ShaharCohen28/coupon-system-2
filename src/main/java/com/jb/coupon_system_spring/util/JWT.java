@@ -26,7 +26,7 @@ public class JWT {
     //decode the secret key
     private Key decodedSecretKey = new SecretKeySpec
             (Base64.getDecoder().decode(secretKey), this.signatureAlgorithm);
-    public static final String CLIENT_TYPE = "client type";
+    public static final String CLIENT_TYPE = "userType";
     public static final String ID="id";
 
     /**
