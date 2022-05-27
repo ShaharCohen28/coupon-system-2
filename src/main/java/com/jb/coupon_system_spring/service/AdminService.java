@@ -42,8 +42,7 @@ public class AdminService extends ClientService implements AdminServiceInterface
             if (!companyRepo.findById(company.getId()).get().getName().equals(company.getName())) {
                 throw new AdminException(ErrorTypes.UNCHANGED_VALUE.getMessage());
             }
-            if(!DataEnc.getEncryptor(companyRepo.findById(company.getId()).get().getPassword())
-                    .equals(company.getPassword())) {
+            if(!companyRepo.findById(company.getId()).get().getPassword().equals(company.getPassword())){
                 company.setPassword(DataEnc.setEncryptor(company.getPassword()));
             }
             companyRepo.save(company);
@@ -111,8 +110,7 @@ public class AdminService extends ClientService implements AdminServiceInterface
     @Override
     public void updateCustomer(Customer customer) throws AdminException {
         if (customerRepo.existsById(customer.getId())) {
-            if(!DataEnc.getEncryptor(customerRepo.findById(customer.getId()).get().getPassword())
-                    .equals(customer.getPassword())){
+            if(!customerRepo.findById(customer.getId()).get().getPassword().equals(customer.getPassword())){
                 customer.setPassword(DataEnc.setEncryptor(customer.getPassword()));
             }
             customerRepo.save(customer);
