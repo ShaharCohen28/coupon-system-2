@@ -53,7 +53,7 @@ public class AdminService extends ClientService implements AdminServiceInterface
     }
 
     /**
-     * This method deletes and existing company from the database based on its id.
+     * This method deletes an existing company from the database based on its id.
      * @param companyId is the id of the company we want to delete.
      * @throws AdminException if the company doesn't exist.
      */
