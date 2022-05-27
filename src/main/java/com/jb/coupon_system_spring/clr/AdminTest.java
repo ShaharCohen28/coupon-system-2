@@ -65,7 +65,6 @@ public class AdminTest implements CommandLineRunner {
         try {
             Company company=adminService.getCompanyById(2);
             company.setEmail("update@company.com");
-            company.setPassword("check");
             adminService.updateCompany(company);
         } catch (AdminException e) {
             System.out.println(e.getMessage());
