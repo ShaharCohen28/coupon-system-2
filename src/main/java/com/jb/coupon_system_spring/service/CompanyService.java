@@ -23,7 +23,11 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     //private int companyId;
 
-
+    /**
+     * This method adds new coupon to the database.
+     * @param coupon is the new coupon we want to add.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public void addCoupon(Coupon coupon) throws CompanyException {
         //todo: how to add coupon only to the current company
@@ -42,6 +46,11 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     }
 
+    /**
+     * This method update an existing coupon in the database.
+     * @param coupon is the new coupon we want to update.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public void updateCoupon(Coupon coupon) throws CompanyException {
 //        if (companyRepo.existsById(coupon.getCompanyId())) {
@@ -67,6 +76,11 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     }
 
+    /**
+     * This method deletes an existing coupon from the database based on its id.
+     * @param couponId is the id of the coupon we want to delete.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public void deleteCoupon(int couponId) throws CompanyException {
         if (couponRepo.existsById(couponId)) {
@@ -81,6 +95,11 @@ public class CompanyService extends ClientService implements CompanyServiceInter
         }
     }
 
+    /**
+     * This method returns a list of all coupons from the database.
+     * @return a list of all coupons from the database.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public List<Coupon> allCompanyCoupons() throws CompanyException {
         if (companyRepo.existsById(this.clientId)) {
@@ -90,6 +109,12 @@ public class CompanyService extends ClientService implements CompanyServiceInter
         }
     }
 
+    /**
+     * This method returns a list of company's coupons from a single category from the database.
+     * @param category is the category we want the coupons to be filtered by.
+     * @return a list of all coupons filtered by category from the database.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public List<Coupon> allCompanyCouponsByCategory(Category category) throws CompanyException {
         if (companyRepo.existsById(this.clientId)) {
@@ -99,6 +124,12 @@ public class CompanyService extends ClientService implements CompanyServiceInter
         }
     }
 
+    /**
+     * This method returns a list of company's coupons up to a maximum price from the database.
+     * @param price is the maximum price we want the coupons to be filtered by.
+     * @return a list of all company's coupons up to a maximum price from the database.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public List<Coupon> allCompanyCouponsByPrice(double price) throws CompanyException {
         if (companyRepo.existsById(this.clientId)) {
@@ -108,6 +139,11 @@ public class CompanyService extends ClientService implements CompanyServiceInter
         }
     }
 
+    /**
+     * This method used to get the details of a company from the database.
+     * @return the details of the company.
+     * @throws CompanyException if the company doesn't exist.
+     */
     @Override
     public Company companyDetails() throws CompanyException {
 //        Optional<Company> company = companyRepo.findById(this.companyId);
