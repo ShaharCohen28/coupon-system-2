@@ -41,10 +41,10 @@ public class CompanyTest implements CommandLineRunner {
                         .amount(100)
                         .description("coupon number "+(i+1))
                         .title("coupon title "+(i+1))
-                        .price(Math.random()*100+1)
+                        .price(Math.ceil(Math.random()*100+1))
                         .startDate(new Date(System.currentTimeMillis()))
                         .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
-                        .image("")
+                        .image("https://ecommerceguide.com/wp-content/uploads/2016/01/coupon-main.jpg")
                         .build();
                 try {
                     companyService.addCoupon(coupon);
