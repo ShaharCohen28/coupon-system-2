@@ -31,6 +31,62 @@ public class AdminTest implements CommandLineRunner {
         updateCustomer();
         deleteCustomer();
         getAllCustomers();
+        getCompanyException();
+        updateCompanyException();
+        deleteCompanyException();
+        getCustomerException();
+        deleteCustomerException();
+
+
+
+
+    }
+
+    private void deleteCustomerException() {
+        System.out.println("deleting customer that doesn't exist");
+        try {
+            adminService.deleteCustomer(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getCustomerException() {
+        System.out.println("Get a customer that doesn't exist");
+        try {
+            adminService.getCustomerById(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void deleteCompanyException() {
+        System.out.println("Deleting company that doesn't exist");
+        try {
+            adminService.deleteCompany(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getCompanyException() {
+        System.out.println("Get a company that doesn't exist");
+        try {
+            adminService.getCompanyById(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void updateCompanyException() {
+        System.out.println("Change company name");
+        try {
+            Company company=adminService.getCompanyById(2);
+            company.setName("exception");
+            adminService.updateCompany(company);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
