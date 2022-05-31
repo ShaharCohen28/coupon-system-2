@@ -115,29 +115,180 @@ public class CompanyTest implements CommandLineRunner {
         }
     }
 
-    public void exceptionTest(){ // todo: ask zeev
-        companyService.setClientId(5);
+    public void exceptionTest(){
 
-            Coupon coupon= Coupon
-                    .builder()
-                    .companyId(5)
-                    .category(Category.ELECTRICITY)
-                    .amount(100)
-                    .description("coupon number "+(1))
-                    .title("coupon title "+(1))
-                    .price(Math.random()*100+1)
-                    .startDate(new Date(System.currentTimeMillis()))
-                    .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
-                    .image("image")
-                    .build();
-            try {
-                companyService.addCoupon(coupon);
-            }
-            catch (Exception err){
-                System.out.println(err.getMessage());
-            }
+        wrongClientID();
+        CouponAddException();  // adding an expired coupon
+        CouponAddException2(); // adding a coupon with amount 0
+        CouponUpdateException();
+        deleteCouponException();
+        allCompanyCouponsException();
+        allCompanyCouponsByCategoryException();
+        allCompanyCouponsByPriceException();
+        companyDetailsException();
 
 
 
     }
+
+    public void wrongClientID(){
+        companyService.setClientId(5);
+
+        Coupon coupon= Coupon
+                .builder()
+                .companyId(5)
+                .category(Category.ELECTRICITY)
+                .amount(100)
+                .description("coupon number "+(1))
+                .title("coupon title "+(1))
+                .price(Math.random()*100+1)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
+                .image("image")
+                .build();
+        try {
+            companyService.addCoupon(coupon);
+        }
+        catch (Exception err){
+            System.out.println(err.getMessage());
+        }
+    }
+
+    public void CouponAddException(){
+
+        companyService.setClientId(1);
+
+        Coupon coupon= Coupon
+                .builder()
+                .companyId(1)
+                .category(Category.ELECTRICITY)
+                .amount(100)
+                .description("coupon number "+(1))
+                .title("coupon title "+(1))
+                .price(Math.random()*100+1)
+                .startDate(new Date(System.currentTimeMillis()-(int)(Math.random()*7+1)*ONE_DAY))
+                .endDate(new Date(System.currentTimeMillis()-(int)(ONE_DAY)))
+                .image("image")
+                .build();
+
+        Coupon coupon2= Coupon
+                .builder()
+                .companyId(1)
+                .category(Category.ELECTRICITY)
+                .amount(0)
+                .description("coupon number "+(1))
+                .title("coupon title "+(1))
+                .price(Math.random()*100+1)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
+                .image("image")
+                .build();
+
+        try {
+            companyService.addCoupon(coupon);
+        }
+        catch (Exception err){
+            System.out.println(err.getMessage());
+        }
+
+        try {
+            companyService.addCoupon(coupon2);
+        }
+        catch (Exception err){
+            System.out.println(err.getMessage());
+        }
+    }
+    public void CouponAddException2(){
+
+        companyService.setClientId(1);
+
+
+
+        Coupon coupon2= Coupon
+                .builder()
+                .companyId(1)
+                .category(Category.ELECTRICITY)
+                .amount(0)
+                .description("coupon number "+(1))
+                .title("coupon title "+(1))
+                .price(Math.random()*100+1)
+                .startDate(new Date(System.currentTimeMillis()))
+                .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
+                .image("image")
+                .build();
+
+
+        try {
+            companyService.addCoupon(coupon2);
+        }
+        catch (Exception err){
+            System.out.println(err.getMessage());
+        }
+    }
+
+    public  void CouponUpdateException(){
+        companyService.setClientId(1);
+
+        Coupon coupon= companyService.getCouponRepo().getById(2);
+        coupon.setCompanyId(2);
+
+        try {
+            companyService.updateCoupon(coupon);
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void deleteCouponException(){
+            companyService.setClientId(1);
+        try {
+            companyService.deleteCoupon(66);
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void allCompanyCouponsException()  {
+        companyService.setClientId(5);
+        try {
+            TablePrinter.print(companyService.allCompanyCoupons());
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void allCompanyCouponsByCategoryException()  {
+        companyService.setClientId(7);
+        try {
+            TablePrinter.print(companyService.allCompanyCouponsByCategory(Category.ELECTRICITY));
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void allCompanyCouponsByPriceException()  {
+        companyService.setClientId(1);
+        try {
+            TablePrinter.print(companyService.allCompanyCouponsByPrice(-100.0));
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void companyDetailsException()  {
+        companyService.setClientId(7);
+        try {
+            TablePrinter.print(companyService.companyDetails());
+        } catch (CompanyException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+
+
+
+
 }
