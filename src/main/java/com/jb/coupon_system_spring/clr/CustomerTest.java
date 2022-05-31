@@ -22,6 +22,11 @@ public class CustomerTest implements CommandLineRunner {
         getAllCouponsByCategory();
         getAllCouponsByPrice();
         getDetails();
+        exceptionPurchaseCoupons();
+        exceptionGetAllCoupons();
+        exceptionGetAllCouponsByCategory();
+        exceptionGetAllCouponsByPrice();
+        exceptionGetDetails();
     }
     private void purchaseCoupons() {
         customerService.setClientId(1);
@@ -64,6 +69,51 @@ public class CustomerTest implements CommandLineRunner {
 
     private void getDetails() {
         customerService.setClientId(2);
+        try {
+            TablePrinter.print(customerService.getCustomerDetails());
+        } catch (CustomerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void exceptionPurchaseCoupons (){
+        customerService.setClientId(1);
+        try {
+            customerService.purchaseCoupon(1);
+        } catch (CouponException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void exceptionGetAllCoupons (){
+        customerService.setClientId(20);
+        try {
+            TablePrinter.print(customerService.getCustomerCoupon());
+        } catch (CustomerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void exceptionGetAllCouponsByCategory() {
+        customerService.setClientId(20);
+        try {
+            TablePrinter.print(customerService.getCustomerCouponByCategory(Category.ELECTRICITY));
+        } catch (CustomerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void exceptionGetAllCouponsByPrice() {
+        customerService.setClientId(20);
+        try {
+            TablePrinter.print(customerService.getCustomerCouponByPrice(68.00));
+        } catch (CustomerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void exceptionGetDetails() {
+        customerService.setClientId(20);
         try {
             TablePrinter.print(customerService.getCustomerDetails());
         } catch (CustomerException e) {
