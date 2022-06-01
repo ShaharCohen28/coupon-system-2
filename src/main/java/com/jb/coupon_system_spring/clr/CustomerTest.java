@@ -83,6 +83,18 @@ public class CustomerTest implements CommandLineRunner {
         } catch (CouponException e){
             System.out.println(e.getMessage());
         }
+
+        try {
+            customerService.purchaseCoupon(7);
+        } catch (CouponException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            customerService.purchaseCoupon(8);
+        } catch (CouponException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void exceptionGetAllCoupons (){
