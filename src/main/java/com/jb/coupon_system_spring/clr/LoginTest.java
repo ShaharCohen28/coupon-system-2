@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @Order(4)
 @RequiredArgsConstructor
 public class LoginTest implements CommandLineRunner {
