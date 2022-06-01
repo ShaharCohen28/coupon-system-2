@@ -119,7 +119,6 @@ public class CompanyTest implements CommandLineRunner {
 
         wrongClientID();
         CouponAddException();  // adding an expired coupon
-        CouponAddException2(); // adding a coupon with amount 0
         CouponUpdateException();
         deleteCouponException();
         allCompanyCouponsException();
@@ -144,7 +143,7 @@ public class CompanyTest implements CommandLineRunner {
                 .price(Math.random()*100+1)
                 .startDate(new Date(System.currentTimeMillis()))
                 .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
-                .image("image")
+                .image("https://ecommerceguide.com/wp-content/uploads/2016/01/coupon-main.jpg")
                 .build();
         try {
             companyService.addCoupon(coupon);
@@ -160,25 +159,25 @@ public class CompanyTest implements CommandLineRunner {
 
         Coupon coupon= Coupon
                 .builder()
-                .companyId(1)
+                .companyId(companyService.getClientId())
                 .category(Category.ELECTRICITY)
                 .amount(100)
-                .description("coupon number "+(1))
-                .title("coupon title "+(1))
-                .price(Math.random()*100+1)
-                .startDate(new Date(System.currentTimeMillis()-(int)(Math.random()*7+1)*ONE_DAY))
-                .endDate(new Date(System.currentTimeMillis()-(int)(ONE_DAY)))
-                .image("image")
+                .description("expired coupon")
+                .title("expired coupon")
+                .price(Math.ceil(Math.random()*100+1))
+                .startDate(new Date(System.currentTimeMillis()-(int)(Math.random()*7+2)*ONE_DAY))
+                .endDate(new Date(System.currentTimeMillis()-ONE_DAY))
+                .image("https://ecommerceguide.com/wp-content/uploads/2016/01/coupon-main.jpg")
                 .build();
 
         Coupon coupon2= Coupon
                 .builder()
-                .companyId(1)
+                .companyId(companyService.getClientId())
                 .category(Category.ELECTRICITY)
                 .amount(0)
-                .description("coupon number "+(1))
-                .title("coupon title "+(1))
-                .price(Math.random()*100+1)
+                .description("out of stock coupon")
+                .title("out of stock coupon")
+                .price(Math.ceil(Math.random()*100+1))
                 .startDate(new Date(System.currentTimeMillis()))
                 .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
                 .image("image")
@@ -186,45 +185,13 @@ public class CompanyTest implements CommandLineRunner {
 
         try {
             companyService.addCoupon(coupon);
-        }
-        catch (Exception err){
-            System.out.println(err.getMessage());
-        }
-
-        try {
             companyService.addCoupon(coupon2);
         }
         catch (Exception err){
             System.out.println(err.getMessage());
         }
     }
-    public void CouponAddException2(){
 
-        companyService.setClientId(1);
-
-
-
-        Coupon coupon2= Coupon
-                .builder()
-                .companyId(1)
-                .category(Category.ELECTRICITY)
-                .amount(0)
-                .description("coupon number "+(1))
-                .title("coupon title "+(1))
-                .price(Math.random()*100+1)
-                .startDate(new Date(System.currentTimeMillis()))
-                .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
-                .image("image")
-                .build();
-
-
-        try {
-            companyService.addCoupon(coupon2);
-        }
-        catch (Exception err){
-            System.out.println(err.getMessage());
-        }
-    }
 
     public  void CouponUpdateException(){
         companyService.setClientId(1);
