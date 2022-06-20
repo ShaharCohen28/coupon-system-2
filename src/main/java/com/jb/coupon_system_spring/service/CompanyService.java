@@ -23,11 +23,13 @@ public class CompanyService extends ClientService implements CompanyServiceInter
 
     /**
      * This method adds new coupon to the database.
+     *
      * @param coupon is the new coupon we want to add.
+     * @return
      * @throws CompanyException if the company doesn't exist.
      */
     @Override
-    public void addCoupon(Coupon coupon) throws CompanyException {
+    public int addCoupon(Coupon coupon) throws CompanyException {
         if(!companyRepo.existsById(coupon.getCompanyId())){
             throw new CompanyException(ErrorTypes.COMPANY_NOT_EXIST.getMessage());
         }
@@ -35,6 +37,12 @@ public class CompanyService extends ClientService implements CompanyServiceInter
             throw new CompanyException(ErrorTypes.WRONG_COMPANY.getMessage());
         }
         couponRepo.save(coupon);
+        Optional<Coupon> couponOptional=couponRepo.findById(coupon.getId());
+        if(couponOptional.isPresent()){
+            return couponOptional.get().getId();
+        }else{
+            throw new CompanyException("something went wrong");
+        }
 
     }
 

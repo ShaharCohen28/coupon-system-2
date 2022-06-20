@@ -146,7 +146,7 @@ public class CompanyTest implements CommandLineRunner {
                 .image("https://ecommerceguide.com/wp-content/uploads/2016/01/coupon-main.jpg")
                 .build();
         try {
-            companyService.addCoupon(coupon);
+            System.out.println(companyService.addCoupon(coupon));
         }
         catch (Exception err){
             System.out.println(err.getMessage());
@@ -184,8 +184,8 @@ public class CompanyTest implements CommandLineRunner {
                 .build();
 
         try {
-            companyService.addCoupon(coupon);
-            companyService.addCoupon(coupon2);
+            System.out.println(companyService.addCoupon(coupon));
+            System.out.println(companyService.addCoupon(coupon2));
         }
         catch (Exception err){
             System.out.println(err.getMessage());

@@ -8,7 +8,7 @@ import com.jb.coupon_system_spring.exceptions.CompanyException;
 import java.util.List;
 
 public interface CompanyServiceInterface {
-    public void addCoupon(Coupon coupon) throws CompanyException;
+    public int addCoupon(Coupon coupon) throws CompanyException;
     public void updateCoupon(Coupon coupon) throws CompanyException;
     public void deleteCoupon(int couponId) throws CompanyException;
     public List<Coupon> allCompanyCoupons() throws CompanyException;

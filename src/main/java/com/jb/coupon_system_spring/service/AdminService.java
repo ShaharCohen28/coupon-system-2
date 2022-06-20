@@ -4,13 +4,14 @@ import com.jb.coupon_system_spring.beans.Company;
 import com.jb.coupon_system_spring.beans.Customer;
 import com.jb.coupon_system_spring.beans.ErrorTypes;
 import com.jb.coupon_system_spring.exceptions.AdminException;
+import com.jb.coupon_system_spring.exceptions.CompanyException;
+import com.jb.coupon_system_spring.exceptions.CustomerException;
 import com.jb.coupon_system_spring.service.interfaces.AdminServiceInterface;
 import com.jb.coupon_system_spring.util.DataEnc;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +27,15 @@ public class AdminService extends ClientService implements AdminServiceInterface
      * @param company is the new company we want to add.
      */
     @Override
-    public void addCompany(Company company) {
+    public int addCompany(Company company) throws CompanyException {
         company.setPassword(DataEnc.setEncryptor(company.getPassword()));
         companyRepo.save(company);
+        Optional<Company> companyOptional=companyRepo.findById(company.getId());
+        if(companyOptional.isPresent()){
+            return companyOptional.get().getId();
+        }else{
+            throw new CompanyException("something went wrong");
+        }
     }
 
     /**
@@ -94,12 +101,20 @@ public class AdminService extends ClientService implements AdminServiceInterface
 
     /**
      * This method adds new customer to the database.
+     *
      * @param customer is the new customer we want to add.
+     * @return
      */
     @Override
-    public void addCustomer(Customer customer) {
+    public int addCustomer(Customer customer) throws CustomerException {
         customer.setPassword(DataEnc.setEncryptor(customer.getPassword()));
         customerRepo.save(customer);
+        Optional<Customer> customerOptional=customerRepo.findById(customer.getId());
+        if(customerOptional.isPresent()){
+            return customerOptional.get().getId();
+        }else{
+            throw new CustomerException("something went wrong");
+        }
     }
 
     /**
