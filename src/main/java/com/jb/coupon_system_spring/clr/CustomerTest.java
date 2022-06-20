@@ -30,7 +30,7 @@ public class CustomerTest implements CommandLineRunner {
     }
     private void purchaseCoupons() {
         customerService.setClientId(1);
-        for (int counter = 1; counter <= 5; counter++) {
+        for (int counter = 1; counter <= 4; counter++) {
             try {
                 customerService.purchaseCoupon(counter);
             } catch (CouponException e) {

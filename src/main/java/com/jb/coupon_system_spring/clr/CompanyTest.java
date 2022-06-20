@@ -180,7 +180,7 @@ public class CompanyTest implements CommandLineRunner {
                 .price(Math.ceil(Math.random()*100+1))
                 .startDate(new Date(System.currentTimeMillis()))
                 .endDate(new Date(System.currentTimeMillis()+(int)(Math.random()*7+1)*ONE_DAY))
-                .image("image")
+                .image("https://ecommerceguide.com/wp-content/uploads/2016/01/coupon-main.jpg")
                 .build();
 
         try {
