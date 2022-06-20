@@ -51,10 +51,9 @@ public class CompanyController {
             (@RequestHeader(name = "Authorization")String token, @RequestBody Coupon coupon)
             throws LoginException, CompanyException {
         jwt.checkClient(companyService,token,clientType);
-        companyService.addCoupon(coupon);
         return ResponseEntity.ok()
                 .header("Authorization", companyService.getToken())
-                .build();
+                .body(companyService.addCoupon(coupon));
 
     }
 

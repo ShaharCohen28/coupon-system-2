@@ -3,6 +3,8 @@ package com.jb.coupon_system_spring.clr;
 import com.jb.coupon_system_spring.beans.Company;
 import com.jb.coupon_system_spring.beans.Customer;
 import com.jb.coupon_system_spring.exceptions.AdminException;
+import com.jb.coupon_system_spring.exceptions.CompanyException;
+import com.jb.coupon_system_spring.exceptions.CustomerException;
 import com.jb.coupon_system_spring.service.AdminService;
 import com.jb.coupon_system_spring.util.TablePrinter;
 import lombok.RequiredArgsConstructor;
@@ -164,7 +166,11 @@ public class AdminTest implements CommandLineRunner {
                     .email("customer"+counter+"@test.com")
                     .password("customer")
                     .build();
-            adminService.addCustomer(customer);
+            try {
+                System.out.println( adminService.addCustomer(customer));
+            } catch (CustomerException e) {
+                System.out.println(e.getMessage());
+            }
 
         }
     }
@@ -177,7 +183,11 @@ public class AdminTest implements CommandLineRunner {
                     .email("company"+counter+"@test.com")
                     .password("company")
                     .build();
-            adminService.addCompany(company);
+            try {
+                System.out.println(adminService.addCompany(company));
+            } catch (CompanyException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
