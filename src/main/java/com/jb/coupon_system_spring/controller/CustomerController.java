@@ -15,12 +15,33 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/customer")
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CustomerController {
 
     private final CustomerService customerService;
     private final JWT jwt;
     private final ClientType clientType=ClientType.CUSTOMER;
+
+//    /**
+//     /**
+//     * This method is used to purchase a Coupon.
+//     *
+//     * @param token    is an authorization token.
+//     * @param couponId is the id of the coupon chosen.
+//     * @return a ResponseEntity with a token in the header.
+//     * @throws CouponException due to invalid coupon(amount, date, already purchased).
+//     * @throws LoginException  due to invalid user.
+//     */
+//    @PostMapping("/purchaseCoupon/{couponId}")
+//    public ResponseEntity<?> addCouponPurchase
+//            (@RequestHeader(name = "Authorization") String token, @PathVariable int couponId)
+//            throws CouponException, LoginException {
+//        jwt.checkClient(customerService,token,clientType);
+//        customerService.purchaseCoupon(couponId);
+//        return ResponseEntity.ok()
+//                .header("Authorization", customerService.getToken())
+//                .build();
+//    }
 
     /**
      /**
@@ -34,13 +55,12 @@ public class CustomerController {
      */
     @PostMapping("/purchaseCoupon/{couponId}")
     public ResponseEntity<?> addCouponPurchase
-            (@RequestHeader(name = "Authorization") String token, @PathVariable int couponId)
+    (@RequestHeader(name = "Authorization") String token, @PathVariable int couponId)
             throws CouponException, LoginException {
         jwt.checkClient(customerService,token,clientType);
-        customerService.purchaseCoupon(couponId);
         return ResponseEntity.ok()
                 .header("Authorization", customerService.getToken())
-                .build();
+                .body(customerService.purchaseCoupon(couponId));
     }
 
     /**

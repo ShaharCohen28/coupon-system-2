@@ -4,6 +4,7 @@ import com.jb.coupon_system_spring.service.GuestService;
 import com.jb.coupon_system_spring.util.JWT;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/guest")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class GuestController {
     private final GuestService guestService;
     private final JWT jwt;
