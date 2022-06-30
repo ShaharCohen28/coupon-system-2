@@ -19,14 +19,12 @@ import java.util.Optional;
 @Setter
 @Getter
 public class CompanyService extends ClientService implements CompanyServiceInterface {
-
-
     /**
      * This method adds new coupon to the database.
      *
      * @param coupon is the new coupon we want to add.
-     * @return
-     * @throws CompanyException if the company doesn't exist.
+     * @return the id of the newly added company.
+     * @throws CompanyException if the company doesn't exist or if the coupon was not added.
      */
     @Override
     public int addCoupon(Coupon coupon) throws CompanyException {
@@ -145,3 +143,4 @@ public class CompanyService extends ClientService implements CompanyServiceInter
         }
     }
 }
+

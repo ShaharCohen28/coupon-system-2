@@ -37,10 +37,9 @@ public class CustomerController {
             (@RequestHeader(name = "Authorization") String token, @PathVariable int couponId)
             throws CouponException, LoginException {
         jwt.checkClient(customerService,token,clientType);
-        customerService.purchaseCoupon(couponId);
         return ResponseEntity.ok()
                 .header("Authorization", customerService.getToken())
-                .build();
+                .body(customerService.purchaseCoupon(couponId));
     }
 
     /**
