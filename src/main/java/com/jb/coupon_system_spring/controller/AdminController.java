@@ -5,6 +5,8 @@ import com.jb.coupon_system_spring.beans.Company;
 import com.jb.coupon_system_spring.beans.Customer;
 import com.jb.coupon_system_spring.beans.ErrorTypes;
 import com.jb.coupon_system_spring.exceptions.AdminException;
+import com.jb.coupon_system_spring.exceptions.CompanyException;
+import com.jb.coupon_system_spring.exceptions.CustomerException;
 import com.jb.coupon_system_spring.exceptions.LoginException;
 import com.jb.coupon_system_spring.service.AdminService;
 import com.jb.coupon_system_spring.util.JWT;
@@ -106,12 +108,12 @@ public class AdminController {
     @PostMapping("/company/add")
     public ResponseEntity<?> addCompany
             (@RequestHeader(name = "Authorization") String token, @RequestBody Company company)
-            throws LoginException {
+            throws LoginException, CompanyException {
         jwt.checkClient(adminService,token,clientType);
-        adminService.addCompany(company);
+
         return ResponseEntity.ok()
                 .header("Authorization", adminService.getToken())
-                .build();
+                .body(adminService.addCompany(company));
     }
 
     /**
@@ -124,12 +126,11 @@ public class AdminController {
     @PostMapping("/customer/add")
     public ResponseEntity<?> addCustomer
             (@RequestHeader(name = "Authorization") String token, @RequestBody Customer customer)
-            throws LoginException {
+            throws LoginException, CustomerException {
         jwt.checkClient(adminService,token,clientType);
-        adminService.addCustomer(customer);
         return ResponseEntity.ok()
                 .header("Authorization", adminService.getToken())
-                .build();
+                .body(adminService.addCustomer(customer));
     }
 
     /**
