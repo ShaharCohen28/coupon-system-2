@@ -13,10 +13,8 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,14 +23,44 @@ import java.util.stream.Collectors;
 public class CustomerService extends ClientService implements CustomerServiceInterFace {
 
 
+    //    /**
+//     * This method is used to purchase a coupon.
+//     *
+//     * @param couponId is the id of the coupon to purchase.
+//     * @throws CouponException due to invalid coupon(amount, date, already purchased).
+//     */
+//    @Override
+//    public void purchaseCoupon(int couponId) throws CouponException {
+//        Optional<Coupon> coupon = couponRepo.findById(couponId);
+//        if (coupon.isPresent()) {
+//            if (coupon.get().getAmount() == 0) {
+//                throw new CouponException(ErrorTypes.COUPON_AMOUNT.getMessage());
+//            }
+//            if (coupon.get().getEndDate().before(new Date(System.currentTimeMillis()))) {
+//                throw new CouponException(ErrorTypes.COUPON_EXPIRED.getMessage());
+//            }
+//            if(couponRepo.isCouponPurchased(this.clientId,couponId)==1){
+//                throw new CouponException(ErrorTypes.COUPON_PURCHASED.getMessage());
+//            }
+//            couponRepo.addCouponPurchase(this.clientId, coupon.get().getId());
+//            coupon.get().setAmount(coupon.get().getAmount() - 1);
+//            couponRepo.save(coupon.get());
+//
+//        } else {
+//            throw new CouponException(ErrorTypes.COUPON_NOT_EXIST.getMessage());
+//
+//        }
+//    }
+
     /**
      * This method is used to purchase a coupon.
      *
      * @param couponId is the id of the coupon to purchase.
+     * @return the coupon that was purchased.
      * @throws CouponException due to invalid coupon(amount, date, already purchased).
      */
     @Override
-    public void purchaseCoupon(int couponId) throws CouponException {
+    public Coupon purchaseCoupon(int couponId) throws CouponException {
         Optional<Coupon> coupon = couponRepo.findById(couponId);
         if (coupon.isPresent()) {
             if (coupon.get().getAmount() == 0) {
@@ -47,6 +75,7 @@ public class CustomerService extends ClientService implements CustomerServiceInt
             couponRepo.addCouponPurchase(this.clientId, coupon.get().getId());
             coupon.get().setAmount(coupon.get().getAmount() - 1);
             couponRepo.save(coupon.get());
+            return coupon.get();
 
         } else {
             throw new CouponException(ErrorTypes.COUPON_NOT_EXIST.getMessage());
