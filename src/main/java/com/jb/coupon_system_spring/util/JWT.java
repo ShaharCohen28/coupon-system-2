@@ -26,7 +26,7 @@ public class JWT {
     //decode the secret key
     private Key decodedSecretKey = new SecretKeySpec
             (Base64.getDecoder().decode(secretKey), this.signatureAlgorithm);
-    public static final String CLIENT_TYPE = "client type";
+    public static final String CLIENT_TYPE = "userType";
     public static final String ID="id";
 
     /**
@@ -173,4 +173,13 @@ public class JWT {
             throw new LoginException(ErrorTypes.UNAUTHORIZED_USER.getMessage());
         }
     }
+
+//    public String generateGuestToken(){
+//        Map<String, Object> claims = new HashMap<>();
+//        claims.put(ID,0);
+//        claims.put("name", "Guest");
+//        claims.put(CLIENT_TYPE, ClientType.GUEST.getName());
+//        return "Bearer " + createToken(claims, "Guest");
+//
+//    }
 }

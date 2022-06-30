@@ -8,7 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @Order(4)
 @RequiredArgsConstructor
 public class LoginTest implements CommandLineRunner {
@@ -19,6 +19,8 @@ public class LoginTest implements CommandLineRunner {
         testLogin("admin@admin.com","admin",ClientType.ADMIN);
         testLogin("company0@test.com","company",ClientType.COMPANY);
         testLogin("customer0@test.com","customer",ClientType.CUSTOMER);
+        testLogin("admin@admin.com","admin",ClientType.CUSTOMER);
+        testLogin("exception@exception.com","exception",ClientType.COMPANY);
     }
 
 

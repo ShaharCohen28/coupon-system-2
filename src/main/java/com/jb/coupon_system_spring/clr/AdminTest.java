@@ -3,6 +3,8 @@ package com.jb.coupon_system_spring.clr;
 import com.jb.coupon_system_spring.beans.Company;
 import com.jb.coupon_system_spring.beans.Customer;
 import com.jb.coupon_system_spring.exceptions.AdminException;
+import com.jb.coupon_system_spring.exceptions.CompanyException;
+import com.jb.coupon_system_spring.exceptions.CustomerException;
 import com.jb.coupon_system_spring.service.AdminService;
 import com.jb.coupon_system_spring.util.TablePrinter;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,62 @@ public class AdminTest implements CommandLineRunner {
         updateCustomer();
         deleteCustomer();
         getAllCustomers();
+        getCompanyException();
+        updateCompanyException();
+        deleteCompanyException();
+        getCustomerException();
+        deleteCustomerException();
+
+
+
+
+    }
+
+    private void deleteCustomerException() {
+        System.out.println("deleting customer that doesn't exist");
+        try {
+            adminService.deleteCustomer(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getCustomerException() {
+        System.out.println("Get a customer that doesn't exist");
+        try {
+            adminService.getCustomerById(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void deleteCompanyException() {
+        System.out.println("Deleting company that doesn't exist");
+        try {
+            adminService.deleteCompany(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getCompanyException() {
+        System.out.println("Get a company that doesn't exist");
+        try {
+            adminService.getCompanyById(100);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void updateCompanyException() {
+        System.out.println("Change company name");
+        try {
+            Company company=adminService.getCompanyById(2);
+            company.setName("exception");
+            adminService.updateCompany(company);
+        } catch (AdminException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -65,7 +123,6 @@ public class AdminTest implements CommandLineRunner {
         try {
             Company company=adminService.getCompanyById(2);
             company.setEmail("update@company.com");
-            company.setPassword("check");
             adminService.updateCompany(company);
         } catch (AdminException e) {
             System.out.println(e.getMessage());
@@ -109,7 +166,11 @@ public class AdminTest implements CommandLineRunner {
                     .email("customer"+counter+"@test.com")
                     .password("customer")
                     .build();
-            adminService.addCustomer(customer);
+            try {
+                System.out.println( adminService.addCustomer(customer));
+            } catch (CustomerException e) {
+                System.out.println(e.getMessage());
+            }
 
         }
     }
@@ -122,7 +183,11 @@ public class AdminTest implements CommandLineRunner {
                     .email("company"+counter+"@test.com")
                     .password("company")
                     .build();
-            adminService.addCompany(company);
+            try {
+                System.out.println(adminService.addCompany(company));
+            } catch (CompanyException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

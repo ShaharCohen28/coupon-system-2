@@ -4,9 +4,10 @@ import org.springframework.stereotype.Component;
 
 
 public enum ClientType {
-    ADMIN("Admin"),
-    COMPANY("Company"),
-    CUSTOMER("Customer");
+    ADMIN("ADMIN"),
+    COMPANY("COMPANY"),
+    CUSTOMER("CUSTOMER");
+//    GUEST("GUEST");
 
     private final String name;
 
