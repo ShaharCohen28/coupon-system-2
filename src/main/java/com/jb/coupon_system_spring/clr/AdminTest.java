@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
-@Component
+//@Component
 @Order(1)
 @RequiredArgsConstructor
 public class AdminTest implements CommandLineRunner {
