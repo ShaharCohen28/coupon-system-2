@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 
-//@Component
+@Component
 @Order(2)
 @RequiredArgsConstructor
 public class CompanyTest implements CommandLineRunner {
